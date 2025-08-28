@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Tools Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .admin-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .admin-controls input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .admin-controls input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .tool-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .tool-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .calculator-section {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .date-inputs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .date-inputs input, .date-inputs select {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .result {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin-top: 15px;
+        }
+
+        .tool-list {
+            background: white;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .tool-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tool-item:last-child {
+            border-bottom: none;
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .delete-btn:hover {
+            background: #ff3742;
+        }
+
+        .access-log {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .admin-controls {
+                flex-direction: column;
+            }
+            
+            .date-inputs {
+                flex-direction: column;
+            }
+            
+            .tool-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 Office Tools Hub</h1>
+            <p>Professional productivity tools for your team</p>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel">
+            <h2>📋 Admin Panel</h2>
+            <div class="admin-controls">
+                <input type="text" id="toolName" placeholder="Tool name (e.g., PDF Converter)">
+                <input type="url" id="toolUrl" placeholder="Tool URL (e.g., https://example.com)">
+                <button class="btn" onclick="addTool()">Add Tool</button>
+            </div>
+            
+            <div class="tool-list" id="customTools">
+                <!-- Custom tools will be added here -->
+            </div>
+        </div>
+
+        <div class="tools-grid">
+            <!-- Birthday Calculator Tool -->
+            <div class="tool-card">
+                <h3>🎂 Birthday Calculator</h3>
+                <p>Calculate age, days until next birthday, and other birthday-related information.</p>
+                
+                <div class="calculator-section">
+                    <div class="date-inputs">
+                        <select id="birthDay">
+                            <option value="">Day</option>
+                        </select>
+                        <select id="birthMonth">
+                            <option value="">Month</option>
+                            <option value="0">January</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                            <option value="4">May</option>
+                            <option value="5">June</option>
+                            <option value="6">July</option>
+                            <option value="7">August</option>
+                            <option value="8">September</option>
+                            <option value="9">October</option>
+                            <option value="10">November</option>
+                            <option value="11">December</option>
+                        </select>
+                        <input type="number" id="birthYear" placeholder="Year" min="1900" max="2030">
+                        <button class="btn" onclick="calculateAge()">Calculate</button>
+                    </div>
+                    
+                    <div id="birthdayResult" class="result" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Access Logger -->
+            <div class="tool-card">
+                <h3>📊 Access Logger</h3>
+                <p>Monitor who accesses the office tools and when.</p>
+                
+                <div class="access-log" id="accessLog">
+                    <!-- Access logs will appear here -->
+                </div>
+                
+                <button class="btn" onclick="clearLogs()" style="margin-top: 15px;">Clear Logs</button>
+            </div>
+
+            <!-- File Manager Simulator -->
+            <div class="tool-card">
+                <h3>📁 Office Resources</h3>
+                <p>Quick access to commonly used office tools and calculators.</p>
+                
+                <div style="margin-top: 20px;">
+                    <a href="#" class="btn" onclick="logAccess('Birthday Calculator')" style="margin: 5px;">🎂 Birthday Calculator</a>
+                    <a href="#" class="btn" onclick="logAccess('Age Calculator')" style="margin: 5px;">⏰ Age Calculator</a>
+                    <a href="#" class="btn" onclick="logAccess('Date Difference')" style="margin: 5px;">📅 Date Difference</a>
+                    <a href="#" class="btn" onclick="logAccess('Calendar')" style="margin: 5px;">🗓️ Calendar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize tools array
+        let customTools = [];
+        let accessLogs = [];
+
+        // Log access function
+        function logAccess(toolName) {
+            const timestamp = new Date().toLocaleString();
+            const userAgent = navigator.userAgent;
+            const ip = 'Office Network'; // Simulated
+            
+            const logEntry = {
+                timestamp: timestamp,
+                tool: toolName,
+                userAgent: userAgent,
+                ip: ip
+            };
+            
+            accessLogs.unshift(logEntry);
+            updateAccessLog();
+        }
+
+        // Update access log display
+        function updateAccessLog() {
+            const logContainer = document.getElementById('accessLog');
+            logContainer.innerHTML = '';
+            
+            accessLogs.slice(0, 10).forEach(log => {
+                const logDiv = document.createElement('div');
+                logDiv.className = 'log-entry';
+                logDiv.innerHTML = `
+                    <div><strong>${log.timestamp}</strong></div>
+                    <div>Tool: ${log.tool}</div>
+                    <div>Source: ${log.ip}</div>
+                `;
+                logContainer.appendChild(logDiv);
+            });
+            
+            if (accessLogs.length === 0) {
+                logContainer.innerHTML = '<div class="log-entry">No access logs yet.</div>';
+            }
+        }
+
+        // Clear logs
+        function clearLogs() {
+            accessLogs = [];
+            updateAccessLog();
+        }
+
+        // Add custom tool
+        function addTool() {
+            const name = document.getElementById('toolName').value.trim();
+            const url = document.getElementById('toolUrl').value.trim();
+            
+            if (name && url) {
+                const tool = {
+                    id: Date.now(),
+                    name: name,
+                    url: url
+                };
+                
+                customTools.push(tool);
+                updateCustomTools();
+                
+                // Clear inputs
+                document.getElementById('toolName').value = '';
+                document.getElementById('toolUrl').value = '';
+                
+                logAccess(`Added new tool: ${name}`);
+            } else {
+                alert('Please enter both tool name and URL');
+            }
+        }
+
+        // Update custom tools display
+        function updateCustomTools() {
+            const container = document.getElementById('customTools');
+            container.innerHTML = '';
+            
+            customTools.forEach(tool => {
+                const toolDiv = document.createElement('div');
+                toolDiv.className = 'tool-item';
+                toolDiv.innerHTML = `
+                    <div>
+                        <strong>${tool.name}</strong><br>
+                        <small><a href="${tool.url}" target="_blank">${tool.url}</a></small>
+                    </div>
+                    <button class="delete-btn" onclick="deleteTool(${tool.id})">Delete</button>
+                `;
+                container.appendChild(toolDiv);
+            });
+            
+            if (customTools.length === 0) {
+                container.innerHTML = '<div class="tool-item">No custom tools added yet.</div>';
+            }
+        }
+
+        // Delete tool
+        function deleteTool(id) {
+            customTools = customTools.filter(tool => tool.id !== id);
+            updateCustomTools();
+            logAccess('Deleted a custom tool');
+        }
+
+        // Birthday calculator functions
+        function populateDays() {
+            const daySelect = document.getElementById('birthDay');
+            for (let i = 1; i <= 31; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.text = i;
+                daySelect.appendChild(option);
+            }
+        }
+
+        function calculateAge() {
+            const day = parseInt(document.getElementById('birthDay').value);
+            const month = parseInt(document.getElementById('birthMonth').value);
+            const year = parseInt(document.getElementById('birthYear').value);
+            
+            if (!day || month === '' || !year) {
+                alert('Please select all date fields');
+                return;
+            }
+            
+            const birthDate = new Date(year, month, day);
+            const today = new Date();
+            
+            // Calculate age
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            // Calculate days until next birthday
+            const nextBirthday = new Date(today.getFullYear(), month, day);
+            if (nextBirthday < today) {
+                nextBirthday.setFullYear(today.getFullYear() + 1);
+            }
+            
+            const timeDiff = nextBirthday.getTime() - today.getTime();
+            const daysToBirthday = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            // Calculate total days lived
+            const timeLived = today.getTime() - birthDate.getTime();
+            const daysLived = Math.floor(timeLived / (1000 * 3600 * 24));
+            
+            const resultDiv = document.getElementById('birthdayResult');
+            resultDiv.innerHTML = `
+                <h4>📊 Birthday Analysis</h4>
+                <p><strong>Current Age:</strong> ${age} years old</p>
+                <p><strong>Days until next birthday:</strong> ${daysToBirthday} days</p>
+                <p><strong>Total days lived:</strong> ${daysLived.toLocaleString()} days</p>
+                <p><strong>Next birthday:</strong> ${nextBirthday.toDateString()}</p>
+            `;
+            resultDiv.style.display = 'block';
+            
+            logAccess('Birthday Calculator - Age Calculation');
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            populateDays();
+            updateCustomTools();
+            updateAccessLog();
+            
+            // Log initial page load
+            logAccess('Office Tools Hub - Page Load');
+        });
+    </script>
+</body>
+</html>
