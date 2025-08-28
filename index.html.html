@@ -1,480 +1,268 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office Tools Hub</title>
+    <title>කාර්යාල උපන්දින ට්රැකර්</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            background-color: #f0f4f8;
+            color: #334155;
             min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .admin-panel {
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .admin-controls {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .admin-controls input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .admin-controls input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-        }
-
-        .tool-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .tool-card h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-
-        .tool-card p {
-            color: #666;
-            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
             line-height: 1.6;
         }
-
-        .calculator-section {
-            background: #f8f9ff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
+        .app-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
         }
-
-        .date-inputs {
+        .app-header {
+            margin-bottom: 2rem;
+        }
+        .header-title {
+            color: #1e293b;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .header-subtitle {
+            font-size: 1.125rem;
+            color: #64748b;
+        }
+        .birthday-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 2rem;
             display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 1.25rem;
         }
-
-        .date-inputs input, .date-inputs select {
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        .result {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-            margin-top: 15px;
-        }
-
-        .tool-list {
-            background: white;
-            border-radius: 10px;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-
-        .tool-item {
-            padding: 15px 20px;
-            border-bottom: 1px solid #f0f0f0;
+        .birthday-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            background-color: #f8fafc;
+            padding: 1.5rem 2rem;
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
-
-        .tool-item:last-child {
-            border-bottom: none;
+        .birthday-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
         }
-
-        .delete-btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
+        .birthday-item-today {
+            background: linear-gradient(135deg, #fde047, #fcd34d);
+            color: #854d0e;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(252, 211, 77, 0.5);
+            animation: bounceIn 0.8s;
+            position: relative;
+            z-index: 10;
         }
-
-        .delete-btn:hover {
-            background: #ff3742;
-        }
-
-        .access-log {
-            background: #f8f9ff;
-            border-radius: 10px;
-            padding: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .log-entry {
-            background: white;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            border-left: 3px solid #667eea;
-            font-family: monospace;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% {
+                transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
             }
-            
-            .admin-controls {
-                flex-direction: column;
-            }
-            
-            .date-inputs {
-                flex-direction: column;
-            }
-            
-            .tool-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
+            0% { transform: scale3d(0.3, 0.3, 0.3); opacity: 0; }
+            20% { transform: scale3d(1.1, 1.1, 1.1); }
+            40% { transform: scale3d(0.9, 0.9, 0.9); }
+            60% { transform: scale3d(1.05, 1.05, 1.05); opacity: 1; }
+            80% { transform: scale3d(0.97, 0.97, 0.97); }
+            100% { transform: scale3d(1, 1, 1); }
+        }
+        .name-date-group {
+            text-align: left;
+            flex-grow: 1;
+        }
+        .name {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .date {
+            font-size: 1rem;
+            color: #64748b;
+        }
+        .birthday-item-today .date {
+            color: #b45309;
+            font-weight: 600;
+        }
+        .day-count {
+            font-size: 1.875rem;
+            font-weight: 800;
+            color: #0d9488;
+        }
+        .today-message {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #854d0e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .today-balloons {
+            font-size: 1.875rem;
+            animation: float 2s ease-in-out infinite alternate;
+        }
+        @keyframes float {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-8px); }
+        }
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.875rem;
+            color: #64748b;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🏢 Office Tools Hub</h1>
-            <p>Professional productivity tools for your team</p>
-        </div>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-        <!-- Admin Panel -->
-        <div class="admin-panel">
-            <h2>📋 Admin Panel</h2>
-            <div class="admin-controls">
-                <input type="text" id="toolName" placeholder="Tool name (e.g., PDF Converter)">
-                <input type="url" id="toolUrl" placeholder="Tool URL (e.g., https://example.com)">
-                <button class="btn" onclick="addTool()">Add Tool</button>
-            </div>
-            
-            <div class="tool-list" id="customTools">
-                <!-- Custom tools will be added here -->
-            </div>
-        </div>
+<div class="app-container">
+    <header class="app-header">
+        <h1 class="header-title">කාර්යාල උපන් දින</h1>
+        <p class="header-subtitle">අපගේ කාර්ය මණ්ඩලයේ උපන්දින ලැයිස්තුව</p>
+    </header>
+    
+    <ul id="birthdayList" class="birthday-list">
+        <!-- Birthday items will be injected here by JavaScript -->
+    </ul>
+    
+    <footer class="footer">
+        <p>මෙය ඔබේ APK එකට පරිවර්තනය කිරීම සඳහා වන නවීන කේතයයි.</p>
+    </footer>
+</div>
 
-        <div class="tools-grid">
-            <!-- Birthday Calculator Tool -->
-            <div class="tool-card">
-                <h3>🎂 Birthday Calculator</h3>
-                <p>Calculate age, days until next birthday, and other birthday-related information.</p>
-                
-                <div class="calculator-section">
-                    <div class="date-inputs">
-                        <select id="birthDay">
-                            <option value="">Day</option>
-                        </select>
-                        <select id="birthMonth">
-                            <option value="">Month</option>
-                            <option value="0">January</option>
-                            <option value="1">February</option>
-                            <option value="2">March</option>
-                            <option value="3">April</option>
-                            <option value="4">May</option>
-                            <option value="5">June</option>
-                            <option value="6">July</option>
-                            <option value="7">August</option>
-                            <option value="8">September</option>
-                            <option value="9">October</option>
-                            <option value="10">November</option>
-                            <option value="11">December</option>
-                        </select>
-                        <input type="number" id="birthYear" placeholder="Year" min="1900" max="2030">
-                        <button class="btn" onclick="calculateAge()">Calculate</button>
-                    </div>
-                    
-                    <div id="birthdayResult" class="result" style="display: none;"></div>
-                </div>
-            </div>
+<script>
+    // Embedded birthday data as requested by the user
+    // You can add more data here
+    const birthdays = [
+        { name: "John Doe", date: "09-05" }, // September 5
+        { name: "Jane Smith", date: "11-20" }, // November 20
+        { name: "Saman Kumara", date: "02-14" }, // February 14
+        { name: "Nimal Perera", date: "07-25" }, // July 25
+        { name: "Kamala Silva", date: "01-01" }, // January 1
+        { name: "Anura Bandara", date: "12-30" }, // December 30
+        { name: "Priyani Dias", date: "05-18" }, // May 18
+        { name: "Jagath Weerasinghe", date: "10-03" }, // October 3
+        { name: "Sunil Jayasuriya", date: "06-08" }, // June 8
+        { name: "Dilani Fernando", date: "03-21" } // March 21
+    ];
 
-            <!-- Access Logger -->
-            <div class="tool-card">
-                <h3>📊 Access Logger</h3>
-                <p>Monitor who accesses the office tools and when.</p>
-                
-                <div class="access-log" id="accessLog">
-                    <!-- Access logs will appear here -->
-                </div>
-                
-                <button class="btn" onclick="clearLogs()" style="margin-top: 15px;">Clear Logs</button>
-            </div>
+    const birthdayList = document.getElementById('birthdayList');
 
-            <!-- File Manager Simulator -->
-            <div class="tool-card">
-                <h3>📁 Office Resources</h3>
-                <p>Quick access to commonly used office tools and calculators.</p>
-                
-                <div style="margin-top: 20px;">
-                    <a href="#" class="btn" onclick="logAccess('Birthday Calculator')" style="margin: 5px;">🎂 Birthday Calculator</a>
-                    <a href="#" class="btn" onclick="logAccess('Age Calculator')" style="margin: 5px;">⏰ Age Calculator</a>
-                    <a href="#" class="btn" onclick="logAccess('Date Difference')" style="margin: 5px;">📅 Date Difference</a>
-                    <a href="#" class="btn" onclick="logAccess('Calendar')" style="margin: 5px;">🗓️ Calendar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Initialize tools array
-        let customTools = [];
-        let accessLogs = [];
-
-        // Log access function
-        function logAccess(toolName) {
-            const timestamp = new Date().toLocaleString();
-            const userAgent = navigator.userAgent;
-            const ip = 'Office Network'; // Simulated
-            
-            const logEntry = {
-                timestamp: timestamp,
-                tool: toolName,
-                userAgent: userAgent,
-                ip: ip
-            };
-            
-            accessLogs.unshift(logEntry);
-            updateAccessLog();
+    // Function to calculate days until next birthday
+    const getDaysUntilBirthday = (birthdayMonth, birthdayDay) => {
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const nextBirthday = new Date(currentYear, birthdayMonth - 1, birthdayDay);
+        
+        // If the birthday has already passed this year, calculate for next year
+        if (nextBirthday < today) {
+            nextBirthday.setFullYear(currentYear + 1);
         }
+        
+        const oneDay = 1000 * 60 * 60 * 24;
+        const diffInTime = nextBirthday.getTime() - today.getTime();
+        return Math.ceil(diffInTime / oneDay);
+    };
 
-        // Update access log display
-        function updateAccessLog() {
-            const logContainer = document.getElementById('accessLog');
-            logContainer.innerHTML = '';
-            
-            accessLogs.slice(0, 10).forEach(log => {
-                const logDiv = document.createElement('div');
-                logDiv.className = 'log-entry';
-                logDiv.innerHTML = `
-                    <div><strong>${log.timestamp}</strong></div>
-                    <div>Tool: ${log.tool}</div>
-                    <div>Source: ${log.ip}</div>
-                `;
-                logContainer.appendChild(logDiv);
-            });
-            
-            if (accessLogs.length === 0) {
-                logContainer.innerHTML = '<div class="log-entry">No access logs yet.</div>';
-            }
-        }
+    // Function to sort the birthdays based on rules
+    const sortBirthdays = (birthdays) => {
+        const today = new Date();
+        const todayMonth = today.getMonth() + 1;
+        const todayDay = today.getDate();
+        
+        const todayBirthdays = [];
+        const upcomingBirthdays = [];
+        const passedBirthdays = [];
 
-        // Clear logs
-        function clearLogs() {
-            accessLogs = [];
-            updateAccessLog();
-        }
-
-        // Add custom tool
-        function addTool() {
-            const name = document.getElementById('toolName').value.trim();
-            const url = document.getElementById('toolUrl').value.trim();
+        birthdays.forEach(person => {
+            const [month, day] = person.date.split('-').map(Number);
+            person.daysUntil = getDaysUntilBirthday(month, day);
             
-            if (name && url) {
-                const tool = {
-                    id: Date.now(),
-                    name: name,
-                    url: url
-                };
-                
-                customTools.push(tool);
-                updateCustomTools();
-                
-                // Clear inputs
-                document.getElementById('toolName').value = '';
-                document.getElementById('toolUrl').value = '';
-                
-                logAccess(`Added new tool: ${name}`);
+            if (month === todayMonth && day === todayDay) {
+                todayBirthdays.push(person);
+            } else if (person.daysUntil > 0) {
+                upcomingBirthdays.push(person);
             } else {
-                alert('Please enter both tool name and URL');
+                // For passed birthdays, calculate days until next year
+                person.daysUntil = getDaysUntilBirthday(month, day);
+                passedBirthdays.push(person);
             }
-        }
-
-        // Update custom tools display
-        function updateCustomTools() {
-            const container = document.getElementById('customTools');
-            container.innerHTML = '';
-            
-            customTools.forEach(tool => {
-                const toolDiv = document.createElement('div');
-                toolDiv.className = 'tool-item';
-                toolDiv.innerHTML = `
-                    <div>
-                        <strong>${tool.name}</strong><br>
-                        <small><a href="${tool.url}" target="_blank">${tool.url}</a></small>
-                    </div>
-                    <button class="delete-btn" onclick="deleteTool(${tool.id})">Delete</button>
-                `;
-                container.appendChild(toolDiv);
-            });
-            
-            if (customTools.length === 0) {
-                container.innerHTML = '<div class="tool-item">No custom tools added yet.</div>';
-            }
-        }
-
-        // Delete tool
-        function deleteTool(id) {
-            customTools = customTools.filter(tool => tool.id !== id);
-            updateCustomTools();
-            logAccess('Deleted a custom tool');
-        }
-
-        // Birthday calculator functions
-        function populateDays() {
-            const daySelect = document.getElementById('birthDay');
-            for (let i = 1; i <= 31; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.text = i;
-                daySelect.appendChild(option);
-            }
-        }
-
-        function calculateAge() {
-            const day = parseInt(document.getElementById('birthDay').value);
-            const month = parseInt(document.getElementById('birthMonth').value);
-            const year = parseInt(document.getElementById('birthYear').value);
-            
-            if (!day || month === '' || !year) {
-                alert('Please select all date fields');
-                return;
-            }
-            
-            const birthDate = new Date(year, month, day);
-            const today = new Date();
-            
-            // Calculate age
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const monthDiff = today.getMonth() - birthDate.getMonth();
-            
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-            
-            // Calculate days until next birthday
-            const nextBirthday = new Date(today.getFullYear(), month, day);
-            if (nextBirthday < today) {
-                nextBirthday.setFullYear(today.getFullYear() + 1);
-            }
-            
-            const timeDiff = nextBirthday.getTime() - today.getTime();
-            const daysToBirthday = Math.ceil(timeDiff / (1000 * 3600 * 24));
-            
-            // Calculate total days lived
-            const timeLived = today.getTime() - birthDate.getTime();
-            const daysLived = Math.floor(timeLived / (1000 * 3600 * 24));
-            
-            const resultDiv = document.getElementById('birthdayResult');
-            resultDiv.innerHTML = `
-                <h4>📊 Birthday Analysis</h4>
-                <p><strong>Current Age:</strong> ${age} years old</p>
-                <p><strong>Days until next birthday:</strong> ${daysToBirthday} days</p>
-                <p><strong>Total days lived:</strong> ${daysLived.toLocaleString()} days</p>
-                <p><strong>Next birthday:</strong> ${nextBirthday.toDateString()}</p>
-            `;
-            resultDiv.style.display = 'block';
-            
-            logAccess('Birthday Calculator - Age Calculation');
-        }
-
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            populateDays();
-            updateCustomTools();
-            updateAccessLog();
-            
-            // Log initial page load
-            logAccess('Office Tools Hub - Page Load');
         });
-    </script>
+
+        // Sort upcoming birthdays from closest to furthest
+        upcomingBirthdays.sort((a, b) => a.daysUntil - b.daysUntil);
+
+        // Sort passed birthdays by recency (the one with the largest daysUntil is the most recent)
+        passedBirthdays.sort((a, b) => a.daysUntil - b.daysUntil);
+
+        return [...todayBirthdays, ...upcomingBirthdays, ...passedBirthdays];
+    };
+
+    // Function to render the list
+    const renderBirthdays = () => {
+        const sortedBirthdays = sortBirthdays(birthdays);
+        
+        // Clear the list before rendering
+        birthdayList.innerHTML = '';
+        
+        sortedBirthdays.forEach(person => {
+            const [month, day] = person.date.split('-').map(Number);
+            const today = new Date();
+            const isToday = today.getMonth() + 1 === month && today.getDate() === day;
+
+            const listItem = document.createElement('li');
+            listItem.className = `birthday-item ${isToday ? 'birthday-item-today' : 'bg-white'}`;
+            
+            let contentHtml = '';
+            if (isToday) {
+                contentHtml = `
+                    <div class="name-date-group">
+                        <span class="name">🥳 ${person.name}</span>
+                        <span class="date text-gray-700 font-semibold">(උපන් දිනය: ${month}-${day})</span>
+                    </div>
+                    <div class="today-message flex items-center gap-2">
+                        <span class="today-balloons">🎈</span>
+                        <span>සුභ උපන්දිනයක්!</span>
+                        <span class="today-balloons">🎈</span>
+                    </div>
+                `;
+            } else {
+                contentHtml = `
+                    <div class="name-date-group">
+                        <span class="name">${person.name}</span>
+                        <span class="date">(උපන් දිනය: ${month}-${day})</span>
+                    </div>
+                    <div class="day-count">
+                        ${person.daysUntil} දින
+                    </div>
+                `;
+            }
+            
+            listItem.innerHTML = contentHtml;
+            birthdayList.appendChild(listItem);
+        });
+    };
+
+    // Initial render when the page loads
+    window.onload = renderBirthdays;
+
+</script>
+
 </body>
 </html>
